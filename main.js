@@ -1,7 +1,14 @@
 
 const readline = require('readline');
-console.log("CORE Quiz");
 
+const figlet = require('figlet');
+const chalk = require('chalk');
+
+console.log(
+    chalk.green.bold(
+        figlet.textSync('CORE Quiz', {horizontalLayout: 'full'})
+    )
+);
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -13,7 +20,7 @@ const rl = readline.createInterface({
         // show all completions if none found
         return [hits.length ? hits : completions, line];
     }
-}); 
+});
 
 rl.prompt();
 rl
