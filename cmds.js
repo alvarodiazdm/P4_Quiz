@@ -55,7 +55,7 @@ exports.showCmd = (rl,id) => {
     }else{
         try{
             const quiz = model.getByIndex(id);
-            log(`[${colorize(id,'magenta')}]: ${quiz.question} ${colorized('=>','magenta')} ${quiz.answer}`);
+            log(`[${colorize(id,'magenta')}]: ${quiz.question} ${colorize('=>','magenta')} ${quiz.answer}`);
         }catch (error){
             errorlog(error.message);
         }
