@@ -5,7 +5,7 @@ const model = require("./model");
 /**
  * Muestra la ayuda.
  */
-const helpCmd = () => {
+const helpCmd = rl => {
     log("Comandos:");
     log(" h | help - Muestra esta ayuda.");
     log(" list - Listar los quizzes existentes.");
@@ -23,7 +23,7 @@ const helpCmd = () => {
 /**
  *Lista todos los quizzes existentes en el modelo.
  */
-const listCmd = () => {
+const listCmd = rl => {
     log('Listar todos los quizzes existentes');
     rl.prompt();
 };
@@ -31,14 +31,14 @@ const listCmd = () => {
 /**
  * Salir del programa.
  */
-const quitCmd = () => {
+const quitCmd = rl => {
     rl.close();
 };
 
 /**
  * Añade un nuevo quiz interactivamente.
  */
-const addCmd = () => {
+const addCmd = rl => {
     log('Añadir un nuevo quiz.');
     rl.prompt();
 };
@@ -46,7 +46,7 @@ const addCmd = () => {
 /**
  * Muestra la pregunta y la respuesta del quiz indicado.
  */
-const showCmd = id => {
+const showCmd = (rl,id) => {
     log('Mostrar el quiz indicado');
     rl.prompt();
 };
@@ -54,7 +54,7 @@ const showCmd = id => {
 /**
  * Prueba el quiz indicado.
  */
-const testCmd = id => {
+const testCmd = (rl,id) => {
     log('Probar el quiz indicado');
     rl.prompt();
 };
@@ -62,7 +62,7 @@ const testCmd = id => {
 /**
  * Jugar a preguntar aleatoriamente por los quizzes.
  */
-const playCmd = () => {
+const playCmd = rl => {
     log('Jugar');
     rl.prompt();
 };
@@ -70,7 +70,7 @@ const playCmd = () => {
 /**
  * Borra el quiz indicado.
  */
-const deleteCmd = id => {
+const deleteCmd = (rl,id) => {
     log('Borrar el quiz indicado');
     rl.prompt();
 };
@@ -78,7 +78,7 @@ const deleteCmd = id => {
 /**
  * Edita el quiz indicado.
  */
-const editCmd = id => {
+const editCmd = (rl,id) => {
     log('Editar el quiz indicado');
     rl.prompt();
 };
@@ -86,7 +86,7 @@ const editCmd = id => {
 /**
  * Creditos.
  */
-const creditsCmd = () => {
+const creditsCmd = rl => {
     log('Autores de la practica:');
     log('Alvaro Diaz del Mazo');
     log('Alonso Espasandin Hernan');
