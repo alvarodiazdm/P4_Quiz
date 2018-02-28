@@ -25,12 +25,9 @@ exports.helpCmd = rl => {
  *Lista todos los quizzes existentes en el modelo.
  */
 exports.listCmd = rl => {
-    /**
-     * model.getAll().forEach((quiz, id) => {
-        log(`   [${colorize(id,'magenta')}]: ${quiz.question}`);
+    model.getAll().forEach((quiz,id) => {
+        log(`[${colorize(id,'magenta')}]: ${quiz.question}`);
     });
-     */
-    log(colorize('Muestra la lista de preguntas.','red'));
     rl.prompt();
 };
 
@@ -112,7 +109,11 @@ exports.editCmd = (rl,id) => {
         errorlog(`Falta el parametro id.`);
     }else{
         try{
+            const quiz = model.getByIndex(id);
+            process.stdout.isTTY && setTimeout(() => {rl.write(quiz.question)},0);
             rl.question(colorize(' Introduce una pregunta: ', 'red'), question => {
+
+                process.stdout.isTTY && setTimeout(() => {rl.write(quiz.answer)},0);
                 rl.question(colorize(' Introduzca la respuesta: ', 'red'), answer => {
                     model.update(id,question, answer);
                     log(`Se ha cambiado el quiz ${colorize(id, 'magenta')} por: ${question} ${colorize('=>', 'magenta')} ${answer}`);
@@ -131,7 +132,7 @@ exports.editCmd = (rl,id) => {
  */
 exports.creditsCmd = rl => {
     log('Autores de la practica:');
-    log('Alvaro Diaz del Mazo');
-    log('Alonso Espasandin Hernan');
+    log(colorize('Alvaro Diaz del Mazo','green'));
+    log(colorize('Alonso Espasandin Hernan','green'));
     rl.prompt();
 };
