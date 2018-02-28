@@ -6,7 +6,7 @@ const model = require("./model");
 /**
  * Muestra la ayuda.
  */
-const helpCmd = rl => {
+exports.helpCmd = rl => {
     log("Comandos:");
     log(" h | help - Muestra esta ayuda.");
     log(" list - Listar los quizzes existentes.");
@@ -34,14 +34,14 @@ exports.listCmd = rl => {
 /**
  * Salir del programa.
  */
-const quitCmd = rl => {
+exports.quitCmd = rl => {
     rl.close();
 };
 
 /**
  * Añade un nuevo quiz interactivamente.
  */
-const addCmd = rl => {
+exports.addCmd = rl => {
     log('Añadir un nuevo quiz.');
     rl.prompt();
 };
@@ -49,7 +49,7 @@ const addCmd = rl => {
 /**
  * Muestra la pregunta y la respuesta del quiz indicado.
  */
-const showCmd = (rl,id) => {
+exports.showCmd = (rl,id) => {
     log('Mostrar el quiz indicado');
     rl.prompt();
 };
@@ -57,7 +57,7 @@ const showCmd = (rl,id) => {
 /**
  * Prueba el quiz indicado.
  */
-const testCmd = (rl,id) => {
+exports.testCmd = (rl,id) => {
     log('Probar el quiz indicado');
     rl.prompt();
 };
@@ -65,7 +65,7 @@ const testCmd = (rl,id) => {
 /**
  * Jugar a preguntar aleatoriamente por los quizzes.
  */
-const playCmd = rl => {
+exports.playCmd = rl => {
     log('Jugar');
     rl.prompt();
 };
@@ -73,7 +73,7 @@ const playCmd = rl => {
 /**
  * Borra el quiz indicado.
  */
-const deleteCmd = (rl,id) => {
+exports.deleteCmd = (rl,id) => {
     log('Borrar el quiz indicado');
     rl.prompt();
 };
@@ -81,7 +81,7 @@ const deleteCmd = (rl,id) => {
 /**
  * Edita el quiz indicado.
  */
-const editCmd = (rl,id) => {
+exports.editCmd = (rl,id) => {
     log('Editar el quiz indicado');
     rl.prompt();
 };
@@ -89,22 +89,9 @@ const editCmd = (rl,id) => {
 /**
  * Creditos.
  */
-const creditsCmd = rl => {
+exports.creditsCmd = rl => {
     log('Autores de la practica:');
     log('Alvaro Diaz del Mazo');
     log('Alonso Espasandin Hernan');
     rl.prompt();
-};
-
-exports = module.exports = {
-    helpCmd,
-    addCmd,
-    showCmd,
-    playCmd,
-    editCmd,
-    deleteCmd,
-    creditsCmd,
-    quitCmd,
-    //listCmd,
-    testCmd
 };
