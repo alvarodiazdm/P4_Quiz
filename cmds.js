@@ -24,9 +24,9 @@ const helpCmd = rl => {
 /**
  *Lista todos los quizzes existentes en el modelo.
  */
-const listCmd = rl => {
-    model.getAll().forEach((quizzes, id) => {
-        log(`   [${colorize(id,'magenta')}]: ${quizzes.question}`);
+exports.listCmd = rl => {
+    model.getAll().forEach((quiz, id) => {
+        log(`   [${colorize(id,'magenta')}]: ${quiz.question}`);
     });
     rl.prompt();
 };
@@ -105,6 +105,6 @@ exports = module.exports = {
     deleteCmd,
     creditsCmd,
     quitCmd,
-    listCmd,
+    //listCmd,
     testCmd
 };
