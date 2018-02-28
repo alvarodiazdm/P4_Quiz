@@ -1,7 +1,7 @@
 
 const readline = require('readline');
 
-const model = require('./model');
+//const model = require('./model');
 const {log,biglog,errorlog,colorize} = require("./out");
 const cmds = require("./cmds");
 
@@ -34,45 +34,45 @@ rl
 
         case 'h':
         case 'help':
-            cmds.helpCmd();
+            cmds.helpCmd(rl);
             break;
 
         case 'quit':
         case 'q':
-            cmds.quitCmd();
+            cmds.quitCmd(rl);
             break;
 
         case 'add':
-            cmds.addCmd();
+            cmds.addCmd(rl);
             break;
 
         case 'list':
-            cmds.listCmd();
+            cmds.listCmd(rl);
             break;
 
         case 'show':
-            cmds.showCmd(args[1]);
+            cmds.showCmd(rl,args[1]);
             break;
 
         case 'test':
-            cmds.testCmd(args[1]);
+            cmds.testCmd(rl,args[1]);
             break;
 
         case 'play':
         case 'p':
-            cmds.playCmd();
+            cmds.playCmd(rl);
             break;
 
         case 'delete':
-            cmds.deleteCmd(args[1]);
+            cmds.deleteCmd(rl,args[1]);
             break;
 
         case 'edit':
-            cmds.editCmd(args[1]);
+            cmds.editCmd(rl,args[1]);
             break;
 
         case 'credits':
-            cmds.creditsCmd();
+            cmds.creditsCmd(rl);
             break;
 
         default:
