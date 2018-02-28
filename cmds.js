@@ -25,8 +25,8 @@ const helpCmd = rl => {
  *Lista todos los quizzes existentes en el modelo.
  */
 const listCmd = rl => {
-    model.getAll().forEach((quiz,id) => {
-        log(`[${colorize(id,'magenta')}]: ${quiz.question}`);
+    model.getAll().forEach((quiz, id) => {
+        log(`   [${colorize(id,'magenta')}]: ${quiz.question}`);
     });
     rl.prompt();
 };
