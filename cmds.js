@@ -30,7 +30,7 @@ exports.listCmd = rl => {
         log(`   [${colorize(id,'magenta')}]: ${quiz.question}`);
     });
      */
-    log('Muestra la lista de preguntas.');
+    log(colorize('Muestra la lista de preguntas.','red'));
     rl.prompt();
 };
 
@@ -45,8 +45,8 @@ exports.quitCmd = rl => {
  * Añade un nuevo quiz interactivamente.
  */
 exports.addCmd = rl => {
-    rl.question(colorize(' Introduce una pregunta ', 'red'), question => {
-        rl.question(colorize(' Introduzca la respuesta ', 'red'), answer => {
+    rl.question(colorize(' Introduce una pregunta: ', 'red'), question => {
+        rl.question(colorize(' Introduzca la respuesta: ', 'red'), answer => {
             model.add(question, answer);
             log(`${colorize('Se ha añadido', 'magenta')}: ${question} ${colorize('=>', 'magenta')} ${answer}`);
             rl.prompt();
@@ -92,7 +92,15 @@ exports.playCmd = rl => {
  * Borra el quiz indicado.
  */
 exports.deleteCmd = (rl,id) => {
-    log('Borrar el quiz indicado');
+    if(typeof id ==="undefined"){
+        errorlog(`Falta el parametro id.`);
+    }else{
+        try{
+            model.deleteByIndex(id);
+        }catch (error){
+            errorlog(error.message);
+        }
+    }
     rl.prompt();
 };
 
@@ -100,8 +108,22 @@ exports.deleteCmd = (rl,id) => {
  * Edita el quiz indicado.
  */
 exports.editCmd = (rl,id) => {
-    log('Editar el quiz indicado');
-    rl.prompt();
+    if (typeof id === "undefined"){
+        errorlog(`Falta el parametro id.`);
+    }else{
+        try{
+            rl.question(colorize(' Introduce una pregunta: ', 'red'), question => {
+                rl.question(colorize(' Introduzca la respuesta: ', 'red'), answer => {
+                    model.update(id,question, answer);
+                    log(`Se ha cambiado el quiz ${colorize(id, 'magenta')} por: ${question} ${colorize('=>', 'magenta')} ${answer}`);
+                    rl.prompt();
+                });
+            });
+        } catch (error){
+            errorlog(error.message);
+            rl.prompt();
+        }
+    }
 };
 
 /**
