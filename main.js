@@ -1,19 +1,56 @@
 
 const readline = require('readline');
-
 const figlet = require('figlet');
 const chalk = require('chalk');
 
-console.log(
-    chalk.green.bold(
-        figlet.textSync('CORE Quiz', {horizontalLayout: 'full'})
-    )
-);
+
+/**
+ * Dar color a un string.
+ * @param msg, String al que hay que dar color
+ * @param color, color que le queremos dar al string
+ * @returns {String}, Devuelve el string con el color indicado
+ */
+const colorize = (msg,color) => {
+    if(typeof color !== "undefined"){
+        msg = chalk[color].bold(msg);
+    }
+    return msg;
+};
+
+/**
+ * Escribe un mensaje
+ *
+ * @param msg, El string a escribir
+ * @param color, Color con el que queremos escribir el string.
+ */
+const log = (msg,color) =>{
+    console.log(colorize(msg,color))
+};
+
+/**
+ * Escribe un mensaje en grande
+ * @param msg, mensaje que queremos escribir
+ * @param color, color en el que queremos escribir el mensaje
+ */
+const biglog = (msg,color) => {
+    log(figlet.textSync(msg, {horizontalLayout:'full'}),color);
+};
+
+/**
+ * Escribe el mensaje de error emsg.
+ * @param emsg, Texto del mensaje de error.
+ */
+const errorlog =(emsg) => {
+    console.log(`${colorize("Error","red")}: ${colorize(colorize(emsg,"red"), "bgYellowBright")}`);
+};
+
+//Mensaje inicial
+biglog('CORE Quiz','green');
 
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
-    prompt: 'quiz> ',
+    prompt: colorize("quiz> ",'blue'),
     completer(line) {
         const completions = 'h help add delete edit list test p play credits q quit'.split(' ');
         const hits = completions.filter((c) => c.startsWith(line));
@@ -78,14 +115,14 @@ rl
             break;
 
         default:
-            console.oog(`Comando desconocido: '${cmd}'`);
-            console.log('Use "help" para ver todos los comandos disponibles');
+            log(`Comando desconocido: '${colorize(cmd,'red')}'`);
+            log(`Use '${colorize('help','green')}' para ver todos los comandos disponibles`);
             rl.prompt();
             break;
     }
 })
 .on('close', () => {
-    console.log('Adios');
+    log('Adios');
 process.exit(0);
 });
 
@@ -94,17 +131,17 @@ process.exit(0);
  * Muestra la ayuda.
  */
 const helpCmd = () => {
-    console.log("Comandos:");
-    console.log(" h | help - Muestra esta ayuda.");
-    console.log(" list - Listar los quizzes existentes.");
-    console.log(" show <id> - Muestra la pregunta y la respuesta del quiz indicado.");
-    console.log(" add - Añadir un nuevo quiz interactivamente.");
-    console.log(" delete <id> - Borrar el quiz indicado.");
-    console.log(" edit <id> - Editar el quiz indicado.");
-    console.log(" test <id> - Probar el quiz indicado.");
-    console.log(" p | play - Jugar a preguntar aleatoriamente por los quizzes.");
-    console.log(" credits - Créditos.");
-    console.log(" q | quit - Salir del programa.");
+    log("Comandos:");
+    log(" h | help - Muestra esta ayuda.");
+    log(" list - Listar los quizzes existentes.");
+    log(" show <id> - Muestra la pregunta y la respuesta del quiz indicado.");
+    log(" add - Añadir un nuevo quiz interactivamente.");
+    log(" delete <id> - Borrar el quiz indicado.");
+    log(" edit <id> - Editar el quiz indicado.");
+    log(" test <id> - Probar el quiz indicado.");
+    log(" p | play - Jugar a preguntar aleatoriamente por los quizzes.");
+    log(" credits - Créditos.");
+    log(" q | quit - Salir del programa.");
     rl.prompt();
 };
 
@@ -112,7 +149,7 @@ const helpCmd = () => {
  *Lista todos los quizzes existentes en el modelo.
  */
 const listCmd = () => {
-    console.log('Listar todos los quizzes existentes');
+    log('Listar todos los quizzes existentes');
     rl.prompt();
 };
 
@@ -127,7 +164,7 @@ const quitCmd = () => {
  * Añade un nuevo quiz interactivamente.
  */
 const addCmd = () => {
-    console.log('Añadir un nuevo quiz.');
+    log('Añadir un nuevo quiz.');
     rl.prompt();
 };
 
@@ -135,7 +172,7 @@ const addCmd = () => {
  * Muestra la pregunta y la respuesta del quiz indicado.
  */
 const showCmd = id => {
-    console.log('Mostrar el quiz indicado');
+    log('Mostrar el quiz indicado');
     rl.prompt();
 };
 
@@ -143,7 +180,7 @@ const showCmd = id => {
  * Prueba el quiz indicado.
  */
 const testCmd = id => {
-    console.log('Probar el quiz indicado');
+    log('Probar el quiz indicado');
     rl.prompt();
 };
 
@@ -151,7 +188,7 @@ const testCmd = id => {
  * Jugar a preguntar aleatoriamente por los quizzes.
  */
 const playCmd = () => {
-    console.log('Jugar');
+    log('Jugar');
     rl.prompt();
 };
 
@@ -159,7 +196,7 @@ const playCmd = () => {
  * Borra el quiz indicado.
  */
 const deleteCmd = id => {
-    console.log('Borrar el quiz indicado');
+    log('Borrar el quiz indicado');
     rl.prompt();
 };
 
@@ -167,7 +204,7 @@ const deleteCmd = id => {
  * Edita el quiz indicado.
  */
 const editCmd = id => {
-    console.log('Editar el quiz indicado');
+    log('Editar el quiz indicado');
     rl.prompt();
 };
 
@@ -175,8 +212,8 @@ const editCmd = id => {
  * Creditos.
  */
 const creditsCmd = () => {
-    console.log('Autores de la practica:');
-    console.log('Alvaro Diaz del Mazo');
-    console.log('Alonso Espasandin Hernan');
+    log('Autores de la practica:');
+    log('Alvaro Diaz del Mazo');
+    log('Alonso Espasandin Hernan');
     rl.prompt();
 };
