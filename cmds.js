@@ -26,7 +26,7 @@ exports.helpCmd = rl => {
  */
 exports.listCmd = rl => {
     model.getAll().forEach((quiz, id) => {
-        log(`   [${id}]: ${quiz.question}`);
+        log(`   [${colorize(id,'magenta')}]: ${quiz.question}`);
     });
     rl.prompt();
 };
@@ -50,7 +50,17 @@ exports.addCmd = rl => {
  * Muestra la pregunta y la respuesta del quiz indicado.
  */
 exports.showCmd = (rl,id) => {
-    log('Mostrar el quiz indicado');
+    if(typeof id==="undefined"){
+        errorlog(`Falta el parametro id.`);
+    }else{
+        try{
+            const quiz = model.getByIndex(id);
+            log(`[${colorize(id,'magenta')}]: ${quiz.question} ${colorized('=>','magenta')} ${quiz.answer}`);
+        }catch (error){
+            errorlog(error.message);
+        }
+    }
+
     rl.prompt();
 };
 
