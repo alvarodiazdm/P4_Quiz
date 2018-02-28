@@ -25,9 +25,12 @@ exports.helpCmd = rl => {
  *Lista todos los quizzes existentes en el modelo.
  */
 exports.listCmd = rl => {
-    model.getAll().forEach((quiz, id) => {
+    /**
+     * model.getAll().forEach((quiz, id) => {
         log(`   [${colorize(id,'magenta')}]: ${quiz.question}`);
     });
+     */
+    log('Muestra la lista de preguntas.');
     rl.prompt();
 };
 
@@ -42,8 +45,13 @@ exports.quitCmd = rl => {
  * Añade un nuevo quiz interactivamente.
  */
 exports.addCmd = rl => {
-    log('Añadir un nuevo quiz.');
-    rl.prompt();
+    rl.question(colorize(' Introduce una pregunta ', 'red'), question => {
+        rl.question(colorize(' Introduzca la respuesta ', 'red'), answer => {
+            model.add(question, answer);
+            log(`${colorize('Se ha añadido', 'magenta')}: ${question} ${colorize('=>', 'magenta')} ${answer}`);
+            rl.prompt();
+        });
+    });
 };
 
 /**
