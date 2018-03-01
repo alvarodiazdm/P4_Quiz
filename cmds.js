@@ -73,8 +73,25 @@ exports.showCmd = (rl,id) => {
  * Prueba el quiz indicado.
  */
 exports.testCmd = (rl,id) => {
-    log('Probar el quiz indicado');
-    rl.prompt();
+    if(typeof id === "undefined"){
+        errorlog(`Falta el parametro id.`);
+        rl.prompt();
+    }else {
+        try{
+            const quiz = model.getByIndex(id);
+            rl.question(`${colorize(quiz.question,'red')}${colorize('? ','red')}` , resp => {
+                if((resp.trim()).toLowerCase() === (quiz.answer).toLowerCase()){
+                    biglog('Correcta','green');
+                }else{
+                    biglog('Incorrecta','red');
+                }
+                rl.prompt();
+            })
+        }catch(err){
+            errorlog(err.message);
+            rl.prompt();
+        }
+    }
 };
 
 /**
