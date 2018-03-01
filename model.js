@@ -1,3 +1,7 @@
+
+const fs = require("fs");
+const DB_FILENAME = "quizzes.json";
+
 //Modelo de datos.
 //
 //En esta variable se mantienen todos los quizzes existentes.
@@ -22,6 +26,31 @@ let quizzes = [
     }
 ];
 
+const load = () => {
+    fs.readFile(DB_FILENAME, (err,data) => {
+        if(err){
+            //La primera vez no existe el fichero
+            if(err.code=="ENOENT"){
+                save();  //valores iniciales
+                return;
+            }
+            throw err;
+        }
+        let json = JSON.parse(data);
+        if(json){
+            quizzes = json;
+        }
+    });
+};
+
+const save = () => {
+    fs.writeFile(DB_FILENAME,
+        JSON.stringify(quizzes),
+        err => {
+        if(err) throw err;
+        });
+};
+
 /**
  * Cuenta el numero de preguntas que tenemos guardadas
  */
@@ -37,6 +66,7 @@ exports.add = (question,answer) => {
         question: (question || "").trim(),
         answer: (answer||"").trim()
     });
+    save();
 };
 
 /**
@@ -55,6 +85,7 @@ exports.update = (id,question,answer) =>{
         question: (question || "").trim(),
         answer: (answer||"").trim()
     });
+    save();
 };
 
 /**
@@ -93,4 +124,8 @@ exports.deleteByIndex = id => {
         throw new Error(`El valor del parametro id no es valido.`);
     }
     quizzes.splice(id,1);
+    save();
 };
+
+//Carga los quizzes almacenados en el fichero
+load();
