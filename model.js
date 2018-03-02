@@ -54,7 +54,7 @@ const save = () => {
 /**
  * Cuenta el numero de preguntas que tenemos guardadas
  */
-exports.count = () => {quizzes.length;};
+exports.count = () => quizzes.length;
 
 /**
  * Nos permite añadir nuevos quizzes
@@ -99,7 +99,7 @@ exports.update = (id,question,answer) =>{
  *
  * return {any}
  */
-exports.getAll = () => {JSON.parse(JSON.stringify(quizzes))};
+exports.getAll = () => JSON.parse(JSON.stringify(quizzes));
 
 /**
  * Devuelve un clon del quiz que se encuentra en la posicion id.

@@ -26,7 +26,7 @@ exports.helpCmd = rl => {
  */
 exports.listCmd = rl => {
     model.getAll().forEach((quiz,id) => {
-        log(`[${colorize(id,'magenta')}]: ${quiz.question}`);
+        log(`   [${colorize(id,'magenta')}]: ${quiz.question}`);
     });
     rl.prompt();
 };
@@ -98,8 +98,36 @@ exports.testCmd = (rl,id) => {
  * Jugar a preguntar aleatoriamente por los quizzes.
  */
 exports.playCmd = rl => {
-    log('Jugar');
-    rl.prompt();
+    let score = 0;
+    let toBeResolved = []; //Guardan los id de todas las preguntas que existen
+    for(var i=0; i<model.count();i++){
+        toBeResolved[i]= i;
+    }
+
+    const playOne = () => {
+        if (toBeResolved.length == 0) {
+            log(colorize('No hay nada mas que preguntar.', 'red'));
+            log(`Su puntuación final es:`);
+            biglog(score,'blue');
+            rl.prompt();
+        } else {
+            let id = toBeResolved.splice(Math.floor(Math.random() * toBeResolved.length),1);
+            let quiz = model.getByIndex(id);
+            rl.question(`${colorize(quiz.question ,'red')}${colorize(':' ,'red')} ` , resp => {
+                if (resp.trim().toLowerCase() === quiz.answer.toLowerCase()) {
+                    score++;
+                    log(`CORECTO - Lleva ${score} aciertos.`);
+                    playOne();
+                } else {
+                    log('INCORRECTO');
+                    log('Fin del examen. Aciertos:');
+                    biglog(score,'magenta');
+                    rl.prompt();
+                }
+            });
+        }
+    };
+    playOne();
 };
 
 /**
