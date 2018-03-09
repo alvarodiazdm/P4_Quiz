@@ -108,7 +108,7 @@ exports.playCmd = rl => {
         if (toBeResolved.length == 0) {
             log(colorize('No hay nada mas que preguntar.', 'red'));
             log(`Su puntuación final es:`);
-            biglog(score,'blue');
+            log(score,'blue');
             rl.prompt();
         } else {
             let id = toBeResolved.splice(Math.floor(Math.random() * toBeResolved.length),1);
