@@ -121,7 +121,7 @@ exports.playCmd = rl => {
                 } else {
                     log('INCORRECTO');
                     log('Fin del examen. Aciertos:');
-                    biglog(score,'magenta');
+                    log(score,'magenta');
                     rl.prompt();
                 }
             });
